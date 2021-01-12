@@ -5,10 +5,14 @@ const nodemailer = require("nodemailer");
 const alert = require('alert');
 require('dotenv').config();
 
-console.log(process.env);
 
 
-const app = express()
+const app = express();
+const port = process.env.port || 3000
+
+app.listen(port, (req, res) => {
+  console.log(`Server started at ${port}`);
+})
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -143,8 +147,5 @@ app.post('/freeKundali', (req, res) => {
     res.redirect('/freeKundali.html')
   })
 
-app.listen(3000, (req, res) => {
-    console.log('Server started at port 8080')
-})
 
   module.exports = app
