@@ -1,13 +1,3 @@
-
-$(function (){
-    $('.hamburger-menu').on('click', function(){
-        $('.toggle').toggleClass('open');
-        $('.nav-list').toggleClass('open');
-
-    });
-});
-
-
 var sunDetail;
 var moonDetails;
 var mercuryDetails;

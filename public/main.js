@@ -11,16 +11,14 @@ $(function (){
 
 
 
-// document.getElementById('.btn form-btn').on('click', getFreeKundali());
 
 function getFreeKundali(){
- console.log(`button Pressed`);   
 var name = document.querySelector('#Name').value;
 var dateOfBirth = document.querySelector('#DOB').value;
 var timeOfBirth = document.querySelector('#Time').value;
 var cityName = document.querySelector('#City').value;
 var countryName = document.querySelector('#Country').value;
-if(name == "" && dateOfBirth == "" && timeOfBirth == "" && cityName =="" && countryName ==""){
+if(name === "" && dateOfBirth === "" && timeOfBirth === "" && cityName === "" && countryName === ""){
     console.log("All Fields are compulsary");
     var x = document.getElementById("snackbar");
     x.className = "show";
@@ -89,8 +87,4 @@ function hideOverlay(){
     document.getElementById("overlay-zodiac").style.display = "none";
 
 }
-
-
-
-
 
