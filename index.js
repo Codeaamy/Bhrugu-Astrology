@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
 const alert = require('alert');
 require('dotenv').config();
 
@@ -29,23 +32,39 @@ app.use(log);
 // HTTP POST
 app.post("/email", function(request, response) {
 
+  const oauth2Client = new OAuth2(
+  `${process.env.OAUTH_ID}`,
+  `${process.env.CLIENT_SECRET}`,
+  "https://developers.google.com/oauthplayground"
+);
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.REFRESH_TOKEN
+});
+
+const accessToken = oauth2Client.getAccessToken()
 
   console.log('Button Pressed');
   
   const transporter = nodemailer.createTransport({
-		host: "smtp.gmail.com",
-		port: 465,
-		secure: true,
-		auth: {
-			user: process.env.EMAIL_ID, // this should be YOUR GMAIL account
-			pass: process.env.EMAIL_PASSWORD // this should be your password
-		}
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: "bhagwatguruji1@gmail.com",
+      clientId: `${process.env.OAUTH_ID}`,
+      clientSecret: `${process.env.CLIENT_SECRET}`,
+      refreshToken: `${process.env.REFRESH_TOKEN}`,
+      accessToken: accessToken
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
 	});
 
 	var textBody = `FROM: ${request.body.name} EMAIL: ${request.body.email} PHONE_NUMBER: ${request.body.mobile} MESSAGE: ${request.body.message}`;
 	var htmlBody = `<h2>Mail From Bhrugu Astrology Form</h2><p>from: ${request.body.name} <a href="mailto:${request.body.email}">${request.body.email}</a> Mobile: ${request.body.mobile}</p><p>${request.body.message}</p>`;
 	var mail = {
-		from: "battledeployment@gmail.com", // sender address
+		from: "bhagwatguruji1@gmail.com", // sender address
 		to: "shreebhagwat94@gmail.com", // list of receivers (THIS COULD BE A DIFFERENT ADDRESS or ADDRESSES SEPARATED BY COMMAS)
 		subject: "Contact Form Bhrugu Astrology", // Subject line
 		text: textBody,

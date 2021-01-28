@@ -1,4 +1,13 @@
 
+$(function (){
+    $('.hamburger-menu').on('click', function(){
+        $('.toggle').toggleClass('open');
+        $('.nav-list').toggleClass('open');
+
+    });
+});
+
+
 var sunDetail;
 var moonDetails;
 var mercuryDetails;
@@ -329,7 +338,8 @@ function planetoryPositionTableFromJson(data){
             document.getElementById('house9-planet').innerHTML = house9Planets.join('<br>');
             document.getElementById('house10-planet').innerHTML = house10Planets;
             document.getElementById('house11-planet').innerHTML = house11Planets.join('<br>');
-            document.getElementById('house12-planet').innerHTML = house12Planets;    
+            document.getElementById('house12-planet').innerHTML = house12Planets; 
+ 
         }
         isMangalic(marsHouseNumber);
         // sadeSathi(moonhouseNumber, saturnHouseNumber);
